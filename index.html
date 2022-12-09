@@ -24,9 +24,14 @@
         <table class="list" id="contactList">
             <div class="colum">
                 <thead>
-                    <span><tr><th style="text-align:center ;"><button type="button" id="btnLogin" click="makeRequest()">Show Data</button></th></tr></span>
+                    <span>
+                        <tr>
+                            <th style="text-align:center ;"><button type="button" id="btnLogin"
+                                    click="makeRequest()">Show Data</button></th>
+                        </tr>
+                    </span>
                     <tr>
-                        <th>No</th>
+                        <th>Id</th>
                         <th>Full Name</th>
                         <th>Email Id</th>
                         <th>contact</th>
@@ -42,29 +47,26 @@
 
     </div>
     </div>
-    
+
     <div class="container">
         <div class="colum">
             <div class="fill">
                 <form id="form">
                     <h2 style="text-align:center ;">Fill Details</h2>
-                    <label >id</label>
-                    <input type="number" name="id" id="id">
                     <div>
-                        <div>
-                            <label>contact</label>
-                            <input type="text" name="contact" id="contact" maxlength="10" required>
-                        </div>
-                        
                         <label>Full Name*</label>
                         <input type="text" name="fullName" id="fullName">
+                    </div>
+                    <div>
+                        <label>contact</label>
+                        <input type="text" name="contact" id="contact" maxlength="10" required>
                     </div>
                     <div>
                         <label>Email Id</label>
                         <input type="text" name="email" id="email">
                     </div>
-                   
-                    <button type="button" id="saveBtn" click="save()">Save Data</button>
+
+                    <button type="button" id="saveBtn" Onclick="save()">Save Data</button>
                     <button type="button" onclick="clearData()">Reset Data</button>
                 </form>
             </div>

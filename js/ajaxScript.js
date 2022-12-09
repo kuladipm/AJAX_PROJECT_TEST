@@ -25,7 +25,7 @@ function makeRequest() {
 
                     table.innerHTML += `
             <tr>
-                <td>${i + 1}</td>
+                <td>${value.id}</td>
                 <td>${value.fullName}</td>
                 <td>${value.email}</td>
                 <td>${value.contact}</td>
@@ -56,27 +56,25 @@ function makeRequest() {
 function save() {
 
     const item = {
-        id: document.getElementById('id').value,
-        contact: document.getElementById('contact').value,
         fullName: document.getElementById('fullName').value,
+        contact: document.getElementById('contact').value,
         email: document.getElementById('email').value,
 
     }
-    let list = JSON.stringify(item)
-    //contactList.push(item)
-    console.log(list);
+    // console.log(list);
+    console.log(item)
     console.log("Save Button clicked");
     const xhr = new XMLHttpRequest();
-    const urlPost = "http://localhost:3000/api/user/add";
+    const urlPost = "http://localhost:3000/api/user";
+
     xhr.open("POST", urlPost, true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send(list)
+
     // console.log('READYSTATE', xhr.readyState);
     xhr.onreadystatechange = function () {
         console.log('READYSTATE', xhr.readyState);
         if (xhr.readyState === XMLDocument.XMLHttpRequest, this.DONE) {
             if (xhr.status === 200) {
-                // console.log(xhr);
+                console.log(xhr);
 
 
             }
@@ -84,7 +82,9 @@ function save() {
         }
 
     }
+    xhr.setRequestHeader("Content-type", "application/json;Charset=UTF-8");
 
+    xhr.send(JSON.stringify(item))
 }
 
 //for calling update api
@@ -122,5 +122,5 @@ function update() {
 
 }
 document.getElementById("btnLogin").addEventListener("click", makeRequest);
-document.getElementById("saveBtn").addEventListener("click", save);
-document.getElementById("updateBtn").addEventListener("click", update);
+document.getElementById("saveBtn").addEventListener("Onclick", save);
+// document.getElementById("updateBtn").addEventListener("click", update);
