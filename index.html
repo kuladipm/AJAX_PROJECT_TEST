@@ -3,7 +3,6 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
 </head>
 <title>Main</title>
 <link rel="stylesheet" href="css/style.css">
@@ -26,8 +25,8 @@
                 <thead>
                     <span>
                         <tr>
-                            <th style="text-align:center ;"><button type="button" id="btnLogin"
-                                    click="makeRequest()">Show Data</button></th>
+                            <th style="text-align:center ;"><button type="button" id="loginBtn"
+                                    click="getMethodData()">Show Data</button></th>
                         </tr>
                     </span>
                     <tr>
@@ -40,50 +39,40 @@
                     </tr>
                 </thead>
                 <tbody id="table">
-
                 </tbody>
-
         </table>
-
     </div>
     </div>
-
     <div class="container">
         <div class="colum">
             <div class="fill">
-                <form id="form">
+                <form id="form" action="/submit">
                     <h2 style="text-align:center ;">Fill Details</h2>
+                    <div>
+                        <input type="hidden" name="idData" id="hideId" value="" />
+                    </div>
                     <div>
                         <label>Full Name*</label>
                         <input type="text" name="fullName" id="fullName">
                     </div>
                     <div>
                         <label>contact</label>
-                        <input type="text" name="contact" id="contact" maxlength="10" required>
+                        <input type="number" onKeyPress="if(this.value.length==10) return false;" id="contact" />
                     </div>
                     <div>
                         <label>Email Id</label>
                         <input type="text" name="email" id="email">
                     </div>
-
-                    <button type="button" id="twoBtn" >Save Data</button>
+                    <button type="button" id="saveBtn" onclick="postData()">Save Data</button>
                     <button type="button" onclick="clearData()">Reset Data</button>
                 </form>
             </div>
         </div>
         <br />
         <script src="./js/ajaxScript.js"></script>
-        <!-- <script src="javascript/save.js"></script>
-        <script src="javascript/find.js"></script>
-        <script src="javascript/remove.js"></script> -->
-        <!-- <script>
-            allData()
-        </script>
-    -->
         <script>
             function clearData() {
                 document.getElementById('form').reset()
-                //document.getElementById('id').value = ""
             }
         </script>
     </div>
