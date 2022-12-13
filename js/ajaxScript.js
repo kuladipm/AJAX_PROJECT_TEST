@@ -17,11 +17,15 @@ function makeRequest() {
                 console.log(xhr);
                 console.log(xhr.response);
                 let contactList = JSON.parse(xhr.response) ?? [];
+                // // for get request through id response converted into object and stored in list variable
+                // let list = JSON.parse(xhr.response);
+                // //list object stored in contact list array 
+                // let  contactList=[list];
                 table.innerHTML = ``
                 //looping data and show data in table
-                contactList.forEach(function (value, i) {
+                contactList.forEach(function (value, id) {
 
-                    var table = document.getElementById('table')
+                    const table = document.getElementById('table')
 
                     table.innerHTML += `
             <tr>
@@ -30,13 +34,14 @@ function makeRequest() {
                 <td>${value.email}</td>
                 <td>${value.contact}</td>
                 <td>
-                    <button type="button" onclick="find(${value.id})">Edit
+                    <button type="button" id="findBtn" onclick="findData('${value.id}','${value.fullName}','${value.contact}','${value.email}')",>Edit
                     </button>
                 
                 </td>
                 <td>
-                    <button type="button" onclick="removeData(${value.id})">Delete
+                    <button type="button" id="deleteBtn" onclick="removeData('${value.id}')">Delete
                </button>
+               
                 </td>
             </tr>`
                 })
@@ -76,7 +81,6 @@ function save() {
             if (xhr.status === 200) {
                 console.log(xhr);
 
-
             }
 
         }
@@ -85,42 +89,92 @@ function save() {
     xhr.setRequestHeader("Content-type", "application/json;Charset=UTF-8");
 
     xhr.send(JSON.stringify(item))
+    alert("data added successfully")
+
 }
 
-//for calling update api
-function update() {
-
-    const item = {
-        id: document.getElementById('id').value,
-        contact: document.getElementById('contact').value,
-        fullName: document.getElementById('fullName').value,
-        email: document.getElementById('email').value,
-
-    }
-    let list = JSON.stringify(item)
-    //contactList.push(item)
-    console.log(list);
-    console.log("Save Button clicked");
-    const xhr = new XMLHttpRequest();
-    const urlPost = "http://localhost:3000/api/user/update/4";
-    xhr.open("POST", urlPost, true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send(list)
-    // console.log('READYSTATE', xhr.readyState);
-    xhr.onreadystatechange = function () {
-        console.log('READYSTATE', xhr.readyState);
-        if (xhr.readyState === XMLDocument.XMLHttpRequest, this.DONE) {
-            if (xhr.status === 200) {
-                // console.log(xhr);
-
-
+//for calling Delete api
+function removeData(id) {
+    if (confirm("Do you want delete data")) {
+        console.log("remove button clicked");
+        console.log(id)
+        const xhr = new XMLHttpRequest();
+        const url = `http://localhost:3000/api/user/${id}`
+        xhr.open("DELETE", url, true);
+        xhr.onreadystatechange = function () {
+            console.log('READYSTATE', xhr.readyState);
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log(xhr);
+                    console.log(xhr.response);
+                    alert("data removed successfully")
+                }
             }
-
         }
+        xhr.send();
+        makeRequest();
+    }
 
+    else {
+        alert("data not deleted")
     }
 
 }
+
+
+//patch method
+function findData(idData,fullNameData, emailData, contactData) {
+    console.log("edit button clicked");
+    document.getElementById('fullName').value =fullNameData
+    document.getElementById('contact').value = emailData
+    document.getElementById('email').value = contactData
+    getData(idData); 
+}
+function getData(id){
+    function saveClick(){
+    let item = [
+        fullName= document.getElementById('fullName').value,
+        contact= document.getElementById('contact').value,
+        email= document.getElementById('email').value,
+
+    ]
+    console.log(item)
+}
+
+    if (confirm("Do you want update data")) {
+        const btn=document.getElementById("twoBtn")
+        btn.addEventListener("onclick",getData);
+      
+       // console.log(getData)   
+    // const xhr = new XMLHttpRequest();
+    //  const url = `http://localhost:3000/api/user/${id}`
+    // xhr.open("PATCH", url, true);
+    // xhr.onreadystatechange = function () {
+    //     console.log('READYSTATE', xhr.readyState);
+    //     if (xhr.readyState === XMLHttpRequest.DONE) {
+    //         if (xhr.status === 200) {
+    //             console.log(xhr);
+    //             console.log(xhr.response);
+    //             alert("data updated successfully")
+    //         }
+    //     }
+    // }
+    // xhr.setRequestHeader("Content-type", "application/json;Charset=UTF-8");
+    // xhr.send(JSON.stringify(body))
+}
+else {
+    alert("data not updated")
+}
+
+
+
+}
+
 document.getElementById("btnLogin").addEventListener("click", makeRequest);
-document.getElementById("saveBtn").addEventListener("Onclick", save);
-// document.getElementById("updateBtn").addEventListener("click", update);
+const btn=document.getElementById("twoBtn")
+btn.addEventListener("onclick", save);
+btn.addEventListener("onclick", findData);
+document.getElementById("deleteBtn").addEventListener("onclick", removeData);
+document.getElementById("findBtn").addEventListener("onclick", findData);
+
+
