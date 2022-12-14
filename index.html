@@ -39,6 +39,7 @@
                     </tr>
                 </thead>
                 <tbody id="table">
+                
                 </tbody>
         </table>
     </div>
@@ -53,15 +54,15 @@
                     </div>
                     <div>
                         <label>Full Name*</label>
-                        <input type="text" name="fullName" id="fullName">
+                        <input type="text" name="fullName" id="fullName" required/>
                     </div>
                     <div>
                         <label>contact</label>
-                        <input type="number" onKeyPress="if(this.value.length==10) return false;" id="contact" />
+                        <input type="number" onKeyPress="if(this.value.length==10) return false;" id="contact" required />
                     </div>
                     <div>
                         <label>Email Id</label>
-                        <input type="text" name="email" id="email">
+                        <input type="text" name="email" id="email" aria-required="true"/>
                     </div>
                     <button type="button" id="saveBtn" onclick="postData()">Save Data</button>
                     <button type="button" onclick="clearData()">Reset Data</button>

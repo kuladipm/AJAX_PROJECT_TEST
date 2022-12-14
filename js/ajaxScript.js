@@ -67,11 +67,31 @@ function postData() {
             if (xhr.readyState === XMLDocument.XMLHttpRequest, this.DONE) {
                 if (xhr.status === 200) {
                     console.log(xhr);
+                    console.log("data saved")
                 }
             }
         }
+        
         xhr.setRequestHeader("Content-type", "application/json;Charset=UTF-8");
         xhr.send(JSON.stringify(item))
+        const value=[item]
+        table.innerHTML += `
+            <tr>
+                <td>${value.id}</td>
+                <td>${value.fullName}</td>
+                <td>${value.email}</td>
+                <td>${value.contact}</td>
+                <td>
+                    <button type="hidden" id="findBtn" onclick="editData('${value.id}','${value.fullName}','${value.contact}','${value.email}')",>Edit
+                    </button>
+                </td>
+                <td>
+                    <button type="button" id="deleteBtn" onclick="removeData('${value.id}')">Delete
+               </button>
+                </td>
+            </tr>`
+        
+        console.log("i am here")
         alert("data added successfully")
     }
     //if value is not null then execute update api
